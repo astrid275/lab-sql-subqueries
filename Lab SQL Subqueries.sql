@@ -15,11 +15,12 @@ WHERE length > (SELECT round(avg(length))
 	FROM film);
 
 # 3: Use a subquery to display all actors who appear in the film "Alone Trip".
-
-SELECT actor_id
-FROM film_actor
-WHERE film_id = (SELECT film_id
-				FROM film
-				WHERE title = "Alone Trip");
+SELECT first_name, last_name
+FROM actor
+WHERE actor_id in (SELECT actor_id
+				FROM film_actor
+				WHERE film_id in (SELECT film_id
+								FROM film
+								WHERE title = "Alone Trip"));
 
 
